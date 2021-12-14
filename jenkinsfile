@@ -1,0 +1,20 @@
+pipeline {
+    agent (label 'manam-1')
+
+    stages {
+        stage ('scm') {
+        steps {
+        git "https://github.com/yadavallimallikharjua/java-maven.git"
+    }
+    }
+stage ('build && SonarQube analysis') {
+    steps {
+        withSonarQubeEnv (installationName: 'SONAR_9.2.1', envOnly: true,installationid: 'SONAR_TOKEN' ) {
+           sh 'mvn clean package sonar:sonar'
+           echo "${env.SONAR_HOST_URL}"
+        }
+    }
+}
+
+}
+}
