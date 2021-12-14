@@ -1,5 +1,5 @@
 pipeline {
-    agent (label 'manam-1')
+    agent {label 'manam-1'}
 
     stages {
         stage ('scm') {
